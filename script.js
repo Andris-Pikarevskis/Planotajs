@@ -114,4 +114,10 @@ function drop_noteHandler (event) {
         return
     } 
 
+    if (this.parentElement === draggedNote.parentElement) {
+
+    }
+     else {
+         this.parentElement.insertBefore(draggedNote, this)
+     }
 }
