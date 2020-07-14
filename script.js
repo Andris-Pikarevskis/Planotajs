@@ -1,5 +1,6 @@
 let noteIdCounter = 8
 let columnIdCounter = 4
+let draggedNote = null
 
 document
     .querySelectorAll('.column')
@@ -76,20 +77,41 @@ document
 }
 
 function dragstart_noteHandler (event) {
-    console.log('dragstart', event, this)
+    draggedNote = this
+    this.classList.add('dragged')
+
+    event.stopPropagation()  
 }
 function dragend_noteHandler (event) {
-    console.log('dragend', event, this)
+    draggedNote = null
+    this.classList.remove('dragged')
+
+    document
+        .querySelectorAll('.note')
+        .forEach(x => x.classList.remove('under'))
 }
 function dragenter_noteHandler (event) {
-    console.log('dragenter', event, this)
+    if (this === draggedNote) {
+        return
+    }
+    this.classList.add('under')
 }
 function dragover_noteHandler (event) {
-    console.log('dragover', event, this)
+    event.preventDefault()
+    if (this === draggedNote) {
+        return
+    }
+
 }
 function dragleave_noteHandler (event) {
-    console.log('dragleave', event, this)
+    if (this === draggedNote) {
+        return
+    }
+    this.classList.remove('under')
 }
 function drop_noteHandler (event) {
-    console.log('drop', event, this)
+    if (this === draggedNote) {
+        return
+    } 
+
 }
