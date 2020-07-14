@@ -66,4 +66,30 @@ document
         noteElement.addEventListener('blur', function (event) {
             noteElement.removeAttribute('contenteditable')
         })
-    }
+
+    noteElement.addEventListener ('dragstart', dragstart_noteHandler)
+    noteElement.addEventListener ('dragend', dragend_noteHandler)
+    noteElement.addEventListener ('dragenter', dragenter_noteHandler)
+    noteElement.addEventListener ('dragover', dragover_noteHandler)
+    noteElement.addEventListener ('dragleave', dragleave_noteHandler)
+    noteElement.addEventListener ('drop', drop_noteHandler)
+}
+
+function dragstart_noteHandler (event) {
+    console.log('dragstart', event, this)
+}
+function dragend_noteHandler (event) {
+    console.log('dragend', event, this)
+}
+function dragenter_noteHandler (event) {
+    console.log('dragenter', event, this)
+}
+function dragover_noteHandler (event) {
+    console.log('dragover', event, this)
+}
+function dragleave_noteHandler (event) {
+    console.log('dragleave', event, this)
+}
+function drop_noteHandler (event) {
+    console.log('drop', event, this)
+}
