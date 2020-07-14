@@ -44,6 +44,9 @@ document
             
             columnElement.querySelector('[data-notes]').append(noteElement)
             noteProcess(noteElement)
+
+            noteElement.setAttribute('contenteditable', 'true')
+            noteElement.focus()
         })
 
         const headerElement = columnElement.querySelector('.column-header')
@@ -71,11 +74,19 @@ document
     function noteProcess (noteElement){
         noteElement.addEventListener('dblclick', function (event) {
             noteElement.setAttribute('contenteditable', 'true')
+            noteElement.removeAttribute('draggable')
+            noteElement.closest('.column').removeAttribute('draggable')
             noteElement.focus()
         })
 
         noteElement.addEventListener('blur', function (event) {
             noteElement.removeAttribute('contenteditable')
+            noteElement.setAttribute('draggable', 'true')
+            noteElement.parentElement.setAttribute('draggable', 'true')
+            
+            //if(!noteElement.textContent.trim().lenght) {
+            //    noteElement.remove()
+            //}
         })
 
     noteElement.addEventListener ('dragstart', dragstart_noteHandler)
