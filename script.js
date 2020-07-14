@@ -56,6 +56,16 @@ document
         headerElement.addEventListener('blur', function (event) {
             headerElement.removeAttribute('contenteditable', true)
         })
+
+        columnElement.addEventListener('dragover', function (event) {
+            event.preventDefault()
+        })
+
+        columnElement.addEventListener('drop', function (event) {
+            if (draggedNote) {
+                return columnElement.querySelector('[data-notes]').append(draggedNote)
+            }
+        })
     }
 
     function noteProcess (noteElement){
@@ -110,6 +120,8 @@ function dragleave_noteHandler (event) {
     this.classList.remove('under')
 }
 function drop_noteHandler (event) {
+    event.stopPropagation()
+
     if (this === draggedNote) {
         return
     } 
