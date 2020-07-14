@@ -115,8 +115,19 @@ function drop_noteHandler (event) {
     } 
 
     if (this.parentElement === draggedNote.parentElement) {
+        const note = Array.from(this.parentElement.querySelectorAll('.note'))
+        const indexA = note.indexOf(this)
+        const indexB = note.indexOf(draggedNote)
 
+        if (indexA < indexB) {
+            this.parentElement.insertBefore(draggedNote, this)
+        }
+
+        else {
+            this.parentElement.insertBefore(draggedNote, this.nextElementSibling)
+        }
     }
+
      else {
          this.parentElement.insertBefore(draggedNote, this)
      }
