@@ -84,9 +84,9 @@ document
             noteElement.setAttribute('draggable', 'true')
             noteElement.parentElement.setAttribute('draggable', 'true')
             
-            //if(!noteElement.textContent.trim().lenght) {
-            //    noteElement.remove()
-            //}
+            if(!noteElement.textContent.trim().length) {
+               noteElement.remove()
+            }
         })
 
     noteElement.addEventListener ('dragstart', dragstart_noteHandler)
