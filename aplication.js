@@ -50,8 +50,15 @@ const Application = {
             return
         }
 
+        const mountePoint = document.querySelector('.columns')
+        mountePoint.innerHTML = ''
+
         const object = JSON.parse(localStorage.getItem('Planotajs'))
 
-        console.log(object)
+        for (const column of object.columns.items) {
+            const columnElement = Column.create(column.id)
+
+            mountePoint.append(column)
+        }
     }
 }

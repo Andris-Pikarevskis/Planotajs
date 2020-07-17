@@ -35,6 +35,30 @@ const Column = {
             columnElement.addEventListener('drop', Column.drop)  
         },
 
+        create (id = null) {
+            const  columnElement = document.createElement('div')
+            columnElement.classList.add('column')
+            columnElement.setAttribute('draggable', 'true')
+
+            if (id) {
+                columnElement.setAttribute('data-column-id', id)
+            }
+
+            else {
+                columnElement.setAttribute('data-column-id', Column.idCounter)
+                Column.idCounter++
+            }
+
+            columnElement.innerHTML = 
+`<p class="column-header">Ir ieplānots</p>
+<div data-notes></div>
+<p class="column-footer">
+    <span data-action-addNote class="action">+ Izveidot jaunu kartiņu</span>
+</p>`
+
+            Column.process(columnElement)
+        },
+
         dragstart (event) {
             Column.dragged = this
             Column.dragged.classList.add('dragged')
