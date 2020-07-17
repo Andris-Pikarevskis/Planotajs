@@ -2,11 +2,11 @@ const Application = {
     save () {
         const object = {
             columns: {
-                idCOunter: 1,
+                idCOunter: Column.idCounter,
                 items: []
             },
             notes: {
-                idCounter: 1,
+                idCounter: Note.idCounter,
                 items: []
             }
         }
@@ -19,12 +19,39 @@ const Application = {
                     noteIds: []
                 }
 
-                object.columns.items.push(column)
+                columnElement
+                    .querySelectorAll('note')
+                    .forEach(noteElement => {
+                        column.noteIds.push(parseInt(noteElement.getAttribute('data-note-id')))
+                    })
+
+                
+                    object.columns.items.push(column)
             })
 
+            document
+                .querySelectorAll('.note')
+                .forEach(noteElement => {
+                    const note = {
+                        id: parseInt(noteElement.getAttribute('data-note-id')),
+                        content: noteElement.textContent
+                    }
 
-        return object 
+                    object.notes.items.push(note)
+                })
+
+                const json = JSON.stringify(object)
+
+                localStorage.setItem('Planotajs', json)
     },
 
-    load () {}
+    load () {
+        if (!localStorage.getItem('Planotajs')) {
+            return
+        }
+
+        const object = JSON.parse(localStorage.getItem('Planotajs'))
+
+        console.log(object)
+    }
 }
