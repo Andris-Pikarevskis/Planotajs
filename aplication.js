@@ -58,7 +58,7 @@ const Application = {
         for (const column of object.columns.items) {
             const columnElement = Column.create(column.id)
 
-            mountePoint.append(column)
+            mountePoint.append(columnElement)
         }
     }
 }

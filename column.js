@@ -57,6 +57,8 @@ const Column = {
 </p>`
 
             Column.process(columnElement)
+
+            return columnElement
         },
 
         dragstart (event) {
