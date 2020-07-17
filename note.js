@@ -28,6 +28,19 @@ const Note = {
     noteElement.addEventListener ('drop', Note.drop)
     }, 
 
+    create () {
+        const noteElement = document.createElement('div')
+
+        noteElement.classList.add('note')
+        noteElement.setAttribute('draggable', 'true')
+        noteElement.setAttribute('data-note-id', Note.idCounter)
+
+        Note.idCounter++
+        Note.process(noteElement)
+        
+        return noteElement
+    },
+
     dragstart (event) {
         Note.dragged = this
         this.classList.add('dragged')
@@ -36,31 +49,42 @@ const Note = {
     },
 
     dragend (event) {
+        event.stopPropagation()  
+
         Note.dragged = null
         this.classList.remove('dragged')
     
         document
             .querySelectorAll('.note')
             .forEach(x => x.classList.remove('under'))
+
+            event.stopPropagation()
     },
 
     dragenter (event) {
-        if (this === Note.dragged) {
+        event.stopPropagation()  
+
+        if (!Note.dragged || this === Note.dragged) {
             return
         }
         this.classList.add('under')
     },
 
-   dragover (event) {
+    dragover (event) {
         event.preventDefault()
-        if (this === Note.dragged) {
+        event.stopPropagation()  
+
+        event.preventDefault()
+        if (!Note.dragged || this === Note.dragged) {
             return
         }
     
     },
 
     dragleave (event) {
-        if (this === Note.dragged) {
+        event.stopPropagation()  
+
+        if (!Note.dragged || this === Note.dragged) {
             return
         }
         this.classList.remove('under')
@@ -69,7 +93,7 @@ const Note = {
     drop (event) {
         event.stopPropagation()
     
-        if (this === Note.dragged) {
+        if (!Note.dragged || this === Note.dragged) {
             return
         } 
     
